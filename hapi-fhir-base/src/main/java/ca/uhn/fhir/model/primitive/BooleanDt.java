@@ -57,6 +57,18 @@ public class BooleanDt extends BasePrimitive<Boolean> implements IBaseBooleanDat
 	}
 
 	@Override
+	public void setValueAsString(String theValue) throws DataFormatException {
+
+// TODO Figure out better way to solve in right location. 
+// Input data was partially broken. We had 'True' not 'true' in parsed data.
+		if (theValue != null && !theValue.isEmpty()) {
+			theValue = theValue.toLowerCase();
+		}
+
+		super.setValueAsString(theValue);
+	}
+
+	@Override
 	protected String encode(Boolean theValue) {
 		if (Boolean.TRUE.equals(theValue)) {
 			return "true";

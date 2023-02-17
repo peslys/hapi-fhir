@@ -462,6 +462,14 @@ public abstract class BaseDateTimeDt extends BasePrimitive<Date> {
 	@Override
 	public void setValueAsString(String theValue) throws DataFormatException {
 		clearTimeZone();
+
+// TODO Figure out better way to solve in right location.
+// Input data was partially broken. We had symbol 'Z' at the end in some date fields.
+		if (theValue != null && !theValue.isEmpty() && 
+					Character.toUpperCase(theValue.charAt(theValue.length() - 1)) == 'Z') {
+				theValue = theValue.substring(0, theValue.length() - 1);
+		}
+
 		super.setValueAsString(theValue);
 	}
 
